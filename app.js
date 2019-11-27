@@ -3,7 +3,8 @@ var express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
-  Cat = require("./models/cat");
+  Cat = require("./models/cat"),
+  seedDB = require("./seeds");
 
 // ROUTES
 var indexRoutes = require("./routes/index"),
@@ -14,6 +15,7 @@ mongoose.connect("mongodb://localhost/purrfectMatch", {
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+seedDB();
 
 app.use("/", indexRoutes);
 app.use("/cats", catRoutes);
