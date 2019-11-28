@@ -56,7 +56,7 @@ router.get("/:id", function(req, res) {
   });
 });
 
-// TODO: EDIT
+// EDIT route
 router.get("/:id/edit", function(req, res) {
   Cat.findById(req.params.id, function(err, foundCat) {
     if (err) {
@@ -67,7 +67,7 @@ router.get("/:id/edit", function(req, res) {
   });
 });
 
-// TODO: UPDATE
+// UPDATE route
 router.put("/:id", function(req, res) {
   var name = req.body.name;
   var image = req.body.image;
@@ -92,5 +92,15 @@ router.put("/:id", function(req, res) {
   });
 });
 
-// TODO: DESTROY
+// DESTROY route
+router.delete("/:id", function(req, res) {
+  Cat.findByIdAndRemove(req.params.id, function(err) {
+    if (err) {
+      res.redirect("/cats");
+    } else {
+      res.redirect("/cats");
+    }
+  });
+});
+
 module.exports = router;
