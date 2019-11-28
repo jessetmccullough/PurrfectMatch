@@ -1,0 +1,65 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <div class="row">
+    <h1 style="text-align: center;">Edit <%= cat.name %></h1>
+    <div style="width: 30%; margin: 25px auto;">
+      <form action="/cats/<%= cat._id %>?_method=PUT" method="POST">
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+            value="<%= cat.name %>"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="text"
+            name="image"
+            value="<%= cat.image %>"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="text"
+            name="age"
+            value="<%= cat.age %>"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="text"
+            name="sex"
+            value="<%= cat.sex %>"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="text"
+            name="breed"
+            value="<%= cat.breed %>"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="text"
+            name="description"
+            value="<%= cat.description %>"
+          />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-lg btn-primary btn-block">Submit</button>
+        </div>
+      </form>
+      <a href="/cats/<%= cat._id %>">Cancel</a>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>

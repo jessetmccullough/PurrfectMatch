@@ -2,7 +2,7 @@ var express = require("express"),
   Cat = require("../models/cat"),
   router = express.Router();
 
-// TODO: INDEX route
+// INDEX route
 router.get("/", function(req, res) {
   Cat.find({}, function(err, allCats) {
     if (err) {
@@ -13,11 +13,38 @@ router.get("/", function(req, res) {
   });
 });
 
-// TODO: CREATE
+// NEW route
+router.get("/new", function(req, res) {
+  res.render("cats/new");
+});
 
-// TODO: NEW
+// CREATE route
+router.post("/", function(req, res) {
+  var name = req.body.name;
+  var image = req.body.image;
+  var age = parseInt(req.body.age);
+  var sex = req.body.sex;
+  var breed = req.body.breed;
+  var desc = req.body.description;
+  var newCat = {
+    name: name,
+    image: image,
+    age: age,
+    sex: sex,
+    breed: breed,
+    description: desc
+  };
+  Cat.create(newCat, function(err, newlyCreated) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(newlyCreated);
+      res.redirect("/cats");
+    }
+  });
+});
 
-// TODO :SHOW
+// SHOW route
 router.get("/:id", function(req, res) {
   Cat.findById(req.params.id).exec(function(err, foundCat) {
     if (err) {
@@ -30,8 +57,40 @@ router.get("/:id", function(req, res) {
 });
 
 // TODO: EDIT
+router.get("/:id/edit", function(req, res) {
+  Cat.findById(req.params.id, function(err, foundCat) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("cats/edit", { cat: foundCat });
+    }
+  });
+});
 
 // TODO: UPDATE
+router.put("/:id", function(req, res) {
+  var name = req.body.name;
+  var image = req.body.image;
+  var age = parseInt(req.body.age);
+  var sex = req.body.sex;
+  var breed = req.body.breed;
+  var desc = req.body.description;
+  var editedCat = {
+    name: name,
+    image: image,
+    age: age,
+    sex: sex,
+    breed: breed,
+    description: desc
+  };
+  Cat.findByIdAndUpdate(req.params.id, editedCat, function(err, updatedCat) {
+    if (err) {
+      res.redirect("/cats");
+    } else {
+      res.redirect("/cats/" + req.params.id);
+    }
+  });
+});
 
 // TODO: DESTROY
 module.exports = router;

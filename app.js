@@ -3,6 +3,7 @@ var express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
+  methodOverride = require("method-override"),
   Cat = require("./models/cat"),
   seedDB = require("./seeds");
 
@@ -15,7 +16,8 @@ mongoose.connect("mongodb://localhost/purrfectMatch", {
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
-seedDB();
+app.use(methodOverride("_method"));
+//seedDB();
 
 app.use("/", indexRoutes);
 app.use("/cats", catRoutes);
